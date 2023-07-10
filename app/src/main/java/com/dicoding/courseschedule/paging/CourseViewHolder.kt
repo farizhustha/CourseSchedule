@@ -1,17 +1,22 @@
 package com.dicoding.courseschedule.paging
 
 import android.view.View
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dicoding.courseschedule.R
 import com.dicoding.courseschedule.data.Course
 import com.dicoding.courseschedule.util.DayName.Companion.getByNumber
 
-class CourseViewHolder(view: View): RecyclerView.ViewHolder(view) {
+class CourseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    private val tvCourse: TextView = view.findViewById(R.id.tv_course)
+    private val tvTime: TextView = view.findViewById(R.id.tv_time)
+    private val tvLecturer: TextView = view.findViewById(R.id.tv_lecturer)
 
     private lateinit var course: Course
     private val timeString = itemView.context.resources.getString(R.string.time_format)
 
     //TODO 7 : Complete ViewHolder to show item
+
     fun bind(course: Course, clickListener: (Course) -> Unit) {
         this.course = course
 
@@ -19,7 +24,9 @@ class CourseViewHolder(view: View): RecyclerView.ViewHolder(view) {
             val dayName = getByNumber(day)
             val timeFormat = String.format(timeString, dayName, startTime, endTime)
 
-
+            tvCourse.text = courseName
+            tvTime.text = timeFormat
+            tvLecturer.text = lecturer
         }
 
         itemView.setOnClickListener {
